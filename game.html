@@ -1,0 +1,200 @@
+<!doctype html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="Assets/jquery.mobile-1.4.5.min.css">
+
+<script src="Assets/jquery-1.11.3.min.js"></script>
+<script src="Assets/jquery.mobile-1.4.5.min.js"></script>
+<script>
+var canMove=false
+
+var timerx
+var score=0
+var counterup=0
+var ender=0
+function start1(){
+	//document.getElementById('b1').style.visibility='hidden'
+	$("#b1").parent().hide();
+	document.getElementById("player").style.visibility="visible"
+	timerx= setInterval("move()", 10)
+	locCoin()
+	player.style.width=.2*window.innerHeight + "px"
+}
+
+
+function locCoin(){
+	for(var i=0; i<11; i++){
+		eval("coin"+i).style.visibility="visible"
+		eval("coin"+i).style.width=.0546875*window.innerWidth + "px"
+		var ytop=-(i*600)
+		//900 minus number
+		eval("coin"+i).style.top= ytop +"px"
+		
+		var xside=0
+
+		
+		//random
+		xside=Math.floor((Math.random() * (window.innerWidth+50))-50); 
+		
+		eval("coin"+i).hit=false
+		eval("coin"+i).style.left= xside +"px"
+	}
+	
+}
+	
+
+	function move(){
+		for(var i=0; i<11; i++){
+		var xCoin = parseInt(eval("coin"+i).style.top)
+		xCoin+= 5
+		eval("coin"+i).style.top= xCoin + "px"
+		bottom()
+		var coin=document.getElementById("coin"+i)
+		var player=document.getElementById("player")
+		
+		
+			
+		
+		
+
+		
+		if(((coin.y+coin.height)>player.y)&&(coin.y<(player.y+player.height))&&((coin.x+coin.width*.75)>player.x)&&(coin.x<(player.x+player.width*.75))&&(coin.hit==false)){
+			coin.style.visibility="hidden"
+			coin.hit=true
+			score+= -1
+			//minues score
+		}
+		
+		}
+		
+			if(counterup==100){
+			score+=1
+			counterup=0
+				}
+		counterup+=1
+		ender+=1
+		
+		if(ender==2000){
+		window.clearInterval(timerx)
+		alert("End Game")
+		window.location.reload()
+		}
+		
+		
+		
+		document.getElementById("p1").innerHTML=score
+		
+	}
+	
+	
+	function bottom(){
+		for(var i=0; i<15; i++){
+		var yCoin = parseInt(eval("coin"+i).style.top)
+		if((yCoin-50)>window.innerHeight){
+			var ytop=-50
+			var xside=Math.floor((Math.random() * (window.innerWidth-100)) + 1);
+			eval("coin"+i).style.top=ytop+ "px"
+			eval("coin"+i).style.left= xside + "px"
+			eval("coin"+i).style.visibility="visible"
+			eval("coin"+i).hit=false
+		}
+			
+		}
+		
+	}
+	
+
+/*
+$(document).on("pagecreate","#pageone",function(){
+  $(document).on("swipe",function(){
+    $("#p1").text(event.pageX);
+	//alert(event.pageX)
+	document.getElementById("player").style.left=event.pageX + "px"
+  });                       
+});
+*/
+
+//Morvement of Player
+/*
+$(document).mousedown(function() {
+	canMove=true
+	});
+	
+		});
+$(document).mouseup(function() {
+	canMove=false
+	});
+	
+	*/
+	
+
+		
+		
+	
+		
+		
+		  $( document ).on ( "vmousemove", function(event) {
+			//if(canMove==true){
+			var width = (document.getElementById("player").clientWidth)/2
+			var locX= event.pageX-width
+		document.getElementById("player").style.left= locX + "px"
+	//	}
+		
+		});
+		
+		
+		
+		
+
+//End of Movement
+
+
+
+
+
+</script>
+<meta charset="utf-8">
+<title>Game</title>
+</head>
+
+<body> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<input type="button" value="Start" id="b1" onClick="start1()">
+
+
+<p id="p1" style="font-family:'Gill Sans', 'Gill Sans MT', 'Myriad Pro', 'DejaVu Sans Condensed', Helvetica, Arial, sans-serif;font-size:36px;position:absolute;left:50%;"></p>
+            
+            
+<img src="player.gif" id="player" style="position:fixed;left:37%;bottom:0;visibility:hidden">
+<img src="coin.png" id="coin0" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin1" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin2" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin3" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin4" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin5" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin6" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin7" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin8" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin9" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin10" style="position:fixed;visibility:hidden;">
+
+<img src="coin.png" id="coin11" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin12" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin13" style="position:fixed;visibility:hidden;">
+<img src="coin.png" id="coin14" style="position:fixed;visibility:hidden;">
+</body>
+</html>
